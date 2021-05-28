@@ -1,5 +1,5 @@
 FROM ubuntu:21.10
-RUN apt update && apt upgrade -y && apt install default-jdk maven git tomcat -y
+RUN apt update && apt upgrade -y && apt install default-jdk maven git tomcat9 -y
 RUN mkdir -p /home/user/ && cd /home/user/ && git clone https://github.com/Artur-/Solitaire.git
 RUN cd /home/user/Solitaire/ && mvn package
 RUN rm -rf /var/lib/tomcat9/webapps/* && cp /home/user/Solitaire/*.war /var/lib/tomcat9/webapps
