@@ -4,6 +4,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update && apt upgrade -y && apt install default-jdk maven git tomcat9 -y
 RUN mkdir -p /home/user/ && cd /home/user/ && git clone https://github.com/Artur-/Solitaire.git
 RUN cd /home/user/Solitaire/ && mvn package
-RUN rm -rf /var/lib/tomcat9/webapps/* && cp /home/user/Solitaire/*.war /var/lib/tomcat9/webapps
+RUN rm -rf /var/lib/tomcat9/webapps/* && cp /home/user/Solitaire/target/*.war /var/lib/tomcat9/webapps
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
