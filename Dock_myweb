@@ -28,7 +28,6 @@ RUN mkdir -p /home/user/ && \
     git clone https://github.com/Artur-/Solitaire.git && \
     cd /home/user/Solitaire/ && \
     mvn package && \
-#    rm -rf $CATALINA_HOME/webapps/* && \
     cp /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
 
 # open port
