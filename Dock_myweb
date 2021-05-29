@@ -1,7 +1,7 @@
 FROM ubuntu:21.10
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt update && apt upgrade -y && apt install default-jdk maven git -y
+RUN apt update && apt upgrade -y && apt install default-jdk maven git wget -y
 ENV CATALINA_HOME=/usr/local/tomcat
 ENV PATH=$CATALINA_HOME/bin:$PATH
 RUN mkdir -p "$CATALINA_HOME"
