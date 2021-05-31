@@ -1,4 +1,4 @@
-FROM ubuntu:21.10
+FROM ubuntu:21.10 AS build
 
 # set timezone
 ENV TZ=Europe/Moscow
@@ -29,6 +29,13 @@ RUN mkdir -p /home/user/ && \
     cd /home/user/Solitaire/ && \
     mvn package && \
     cp /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
+
+FROM:ubuntu:21.10
+
+WORKDIR "$CATALINA_HOME"
+COPY –from=build /usr/local/tomcat ./
+COPY –from=build /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
+
 
 # open port
 EXPOSE 8080
