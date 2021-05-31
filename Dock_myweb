@@ -28,22 +28,23 @@ RUN mkdir -p /home/user/ && \
     git clone https://github.com/Artur-/Solitaire.git && \
     cd /home/user/Solitaire/ && \
     mvn package && \
-    cp /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
 
 FROM ubuntu:21.10
+
 # create catalina path
 ENV CATALINA_HOME=/usr/local/tomcat
 ENV PATH=$CATALINA_HOME/bin:$PATH
-WORKDIR "$CATALINA_HOME"
 
 # install base soft
 RUN apt update && \
     apt upgrade -y && \
-    apt install default-jdk -y
+    apt install default-jdk -y \
+    rm -rf /var/cache/apt/archives/*
 
+# get Tomcat and app from image build
+WORKDIR "$CATALINA_HOME"
 COPY --from=build /usr/local/tomcat ./
 COPY --from=build /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
-
 
 # open port
 EXPOSE 8080
