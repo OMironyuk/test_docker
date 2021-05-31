@@ -36,6 +36,11 @@ ENV CATALINA_HOME=/usr/local/tomcat
 ENV PATH=$CATALINA_HOME/bin:$PATH
 WORKDIR "$CATALINA_HOME"
 
+# install base soft
+RUN apt update && \
+    apt upgrade -y && \
+    apt install default-jdk -y
+
 COPY --from=build /usr/local/tomcat ./
 COPY --from=build /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
 
