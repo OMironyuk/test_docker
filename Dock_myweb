@@ -30,11 +30,14 @@ RUN mkdir -p /home/user/ && \
     mvn package && \
     cp /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
 
-FROM:ubuntu:21.10
-
+FROM ubuntu:21.10
+# create catalina path
+ENV CATALINA_HOME=/usr/local/tomcat
+ENV PATH=$CATALINA_HOME/bin:$PATH
 WORKDIR "$CATALINA_HOME"
-COPY –from=build /usr/local/tomcat ./
-COPY –from=build /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
+
+COPY --from=build /usr/local/tomcat ./
+COPY --from=build /home/user/Solitaire/target/*.war $CATALINA_HOME/webapps/solitaire.war
 
 
 # open port
