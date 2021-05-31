@@ -5,4 +5,3 @@ RUN mkdir -p /home/user/ && cd /home/user/ && git clone https://github.com/boxfu
 RUN cd /home/user/boxfuse-sample-java-war-hello && mvn package
 RUN cp /home/user/boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/local/tomcat/webapps
 
-EXPOSE 8080
